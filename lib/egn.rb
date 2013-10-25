@@ -1,13 +1,16 @@
-# require "egn/version"
+require "egn/version"
+require "date"
 
 module Egn
   PARITY_WEIGHTS = [2,4,8,5,10,9,7,3,6]
 
   module Generator
     def self.egn
-      year = Random.rand(1800..2099)
-      mon = Random.rand(1..12)
-      day = Random.rand(1..31)
+      date = time_rand
+      year = date.year
+      mon = date.month
+      day = date.day
+
       cent = year - (year % 100)
       sex = Random.rand(1..2)
 
@@ -38,6 +41,9 @@ module Egn
       rest < 10 ? rest : 0
     end
 
+    def self.time_rand(from = 0.0, to = Time.now)
+      Time.at(from + rand * (to.to_f - from.to_f))
+    end
 
   end
 
