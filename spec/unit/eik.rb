@@ -1,3 +1,5 @@
 describe "EIK" do
-  describe "validation"
+  describe 'Generation'
+
+  describe "Validation"
 end
