@@ -1,5 +1,6 @@
 module Egn
   class Egn
+    attr_reader :number
 
     # Options would be year, month, day, sex, region
     def initialize(egn=nil, options={})

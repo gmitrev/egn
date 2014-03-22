@@ -1,5 +1,7 @@
 require "date"
 
+require "egn/egn"
+
 require "egn/generator"
 require "egn/parser"
 require "egn/validator"
