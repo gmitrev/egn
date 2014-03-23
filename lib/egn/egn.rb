@@ -1,6 +1,6 @@
 module Egn
   class Egn
-    attr_reader :number
+    attr_reader :number, :year, :month, :day
 
     def initialize(args=nil)
 
