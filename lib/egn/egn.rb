@@ -17,13 +17,5 @@ module Egn
 
     end
 
-    def sex
-
-    end
-
-    def region
-
-    end
-
   end
 end

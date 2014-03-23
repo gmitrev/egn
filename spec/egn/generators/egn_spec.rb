@@ -49,7 +49,40 @@ describe Egn::Generators::Egn do
         expect(egn.day).to eq(15)
       end
 
+      it "validates the options" do
+
+        options = {year: 1960, month: 6, day: 3}
+
+        Egn::Generators::Egn.should_receive(:validate!).with(options)
+
+        Egn::Generators::Egn.generate(options)
+      end
+
+
     end
   end
+
+  describe "#validate!" do
+
+    it "raises an exception if invalid year is given" do
+      expect{
+        Egn::Generators::Egn.generate(year: 1500)
+      }.to raise_error ArgumentError
+    end
+
+    it "raises an exception if invalid month is given" do
+      expect{
+        Egn::Generators::Egn.generate(month: 15)
+      }.to raise_error ArgumentError
+    end
+
+    it "raises an exception if invalid day is given" do
+      expect{
+        Egn::Generators::Egn.generate(day: 33)
+      }.to raise_error ArgumentError
+    end
+
+  end
+
 end
 

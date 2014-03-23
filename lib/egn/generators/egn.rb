@@ -13,6 +13,8 @@ module Egn
           day:   date.day
         }.merge(options)
 
+        validate!(options)
+
         cent = options[:year] - (options[:year] % 100)
         sex = Random.rand(1..2)
 
@@ -45,6 +47,13 @@ module Egn
 
       def self.time_rand(from = 0.0, to = Time.now)
         Time.at(from + rand * (to.to_f - from.to_f))
+      end
+
+      def self.validate!(options)
+        raise ArgumentError, "Year out of bounds" unless (1800..2100).include?(options[:year])
+        raise ArgumentError, "Month out of bounds" unless (1..12).include?(options[:month])
+        raise ArgumentError, "Day out of bounds" unless (1..31).include?(options[:day])
+
       end
 
     end
