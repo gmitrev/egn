@@ -2,7 +2,7 @@ require "date"
 
 require "egn/egn"
 
-require "egn/generator"
+require "egn/generators/egn"
 require "egn/parser"
 require "egn/validator"
 require "egn/version"
@@ -10,7 +10,7 @@ require "egn/version"
 module Egn
 
   def self.generate
-    Generator.egn
+    Egn::Generator::Egn.generate
   end
 
   def self.validate(egn)

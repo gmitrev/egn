@@ -19,6 +19,13 @@ describe "Egn" do
         expect(egn1.number).not_to eq egn2.number
       end
 
+      it "delegates the creation to Generators::Egn" do
+
+        Egn::Generators::Egn.should_receive(:generate)
+
+        Egn::Egn.new
+      end
+
     end
 
     context "invoked with an EGN " do
@@ -37,23 +44,13 @@ describe "Egn" do
 
     end
 
-    context "inoked with an options hash" do
+    context "invoked with an options hash" do
 
-      it "generates a new EGN considering the given options" do
-        egn = Egn::Egn.new(year: 1990, month: 12, day: 30, sex: :male)
-
-        expect(egn).to be_valid
-      end
-
-      it "generates a new EGN with the given year" do
-        egn = Egn::Egn.new(year: 1990)
-
-        expect(egn.year).to eq(1990)
-      end
-
+      it "passes the options to the #generate method"
 
     end
   end
+
 
   describe 'validating'
 
