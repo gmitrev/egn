@@ -1,6 +1,6 @@
 module Egn
   module Generators
-    module Egn
+    class Egn
 
       PARITY_WEIGHTS = [2,4,8,5,10,9,7,3,6]
 

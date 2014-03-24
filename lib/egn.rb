@@ -3,8 +3,8 @@ require "date"
 require "egn/egn"
 
 require "egn/generators/egn"
+require "egn/parsers/egn"
 require "egn/validators/egn"
-require "egn/parser"
 require "egn/version"
 
 module Egn
@@ -18,7 +18,7 @@ module Egn
   end
 
   def self.parse(egn)
-    Parser.new(egn)
+    Egn::Egn.new(egn)
   end
 
 end

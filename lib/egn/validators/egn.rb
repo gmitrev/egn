@@ -1,6 +1,6 @@
 module Egn
   module Validators
-    module Egn
+    class Egn
 
       def self.validate(egn)
         return false unless egn.length == 10

@@ -1,6 +1,6 @@
 module Egn
   class Egn
-    attr_reader :number, :year, :month, :day, :birth_date
+    attr_reader :number, :birth_date
 
     def initialize(args=nil)
 
@@ -25,12 +25,24 @@ module Egn
       @valid ||= Validators::Egn.validate(@number)
     end
 
+    def day
+      @birth_date.day
+    end
+
+    def month
+      @birth_date.month
+    end
+
+    def year
+      @birth_date.year
+    end
+
     private
 
-    def parse
-      parser = Parser::Egn.new(@number)
+    def parse!
+      info = Parsers::Egn.new(@number)
 
-
+      @birth_date = info.birth_date
     end
 
   end
