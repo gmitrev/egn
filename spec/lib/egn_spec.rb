@@ -46,8 +46,26 @@ describe "Egn" do
 
     context "invoked with an options hash" do
 
-      it "passes the options to the #generate method"
+      it "passes the options to the #generate method" do
+        options = {
+          year: 1960,
+          month: 12
+        }
 
+        Egn::Generators::Egn.should_receive(:generate).with(options)
+
+        Egn::Egn.new(options)
+
+      end
+
+    end
+
+    context "invoked with something else" do
+      it 'raises an ArgumentError' do
+        expect{
+          Egn::Egn.new([1,2,'hi'])
+        }.to raise_error ArgumentError
+      end
     end
   end
 
