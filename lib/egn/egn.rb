@@ -11,6 +11,7 @@ module Egn
     end
 
     def valid?
+      @valid ||= Validators::Egn.validate(@number)
     end
 
     def birth_date

@@ -51,6 +51,14 @@ describe "Egn" do
     end
   end
 
+  describe "valid?" do
+    it 'delegates the validation to Validators::Egn' do
+      egn = Egn::Egn.new
+      Egn::Validators::Egn.should_receive(:validate).with(egn.number)
+      egn.valid?
+    end
+  end
+
 
   describe 'validating'
 
