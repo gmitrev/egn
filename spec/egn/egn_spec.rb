@@ -21,7 +21,7 @@ describe "Egn" do
 
       it "delegates the creation to Generators::Egn" do
 
-        Egn::Generators::Egn.should_receive(:generate).and_return "6101047500"
+        Egn::Generator.should_receive(:generate).and_return "6101047500"
 
         Egn::Egn.new
       end
@@ -52,7 +52,7 @@ describe "Egn" do
           month: 12
         }
 
-        Egn::Generators::Egn.should_receive(:generate).with(options).and_return('6012081988')
+        Egn::Generator.should_receive(:generate).with(options).and_return('6012081988')
 
         Egn::Egn.new(options)
       end
@@ -71,7 +71,7 @@ describe "Egn" do
   describe "valid?" do
     it 'delegates the validation to Validators::Egn' do
       egn = Egn::Egn.new
-      Egn::Validators::Egn.should_receive(:validate).with(egn.number)
+      Egn::Validator.should_receive(:validate).with(egn.number)
       egn.valid?
     end
   end

@@ -1,24 +1,23 @@
 require "date"
 
 require "egn/egn"
-
-require "egn/generators/egn"
-require "egn/parsers/egn"
-require "egn/validators/egn"
+require "egn/parser"
+require "egn/validator"
+require "egn/generator"
 require "egn/version"
 
 module Egn
 
   def self.generate
-    Egn::Generators::Egn.generate
+    Generator.generate
   end
 
   def self.validate(egn)
-    Egn::Validators::Egn.validate(egn)
+    Validator.validate(egn)
   end
 
   def self.parse(egn)
-    Egn::Egn.new(egn)
+    Egn.new(egn)
   end
 
 end

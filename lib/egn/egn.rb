@@ -5,11 +5,11 @@ module Egn
     def initialize(args=nil)
 
       if args.nil?
-        @number = Generators::Egn.generate
+        @number = Generator.generate
       else
         case args
         when Hash
-          @number = Generators::Egn.generate(args)
+          @number = Generator.generate(args)
         when String
           @number = args
           raise ArgumentError, "Invalid EGN" unless self.valid?
@@ -22,7 +22,7 @@ module Egn
     end
 
     def valid?
-      @valid ||= Validators::Egn.validate(@number)
+      @valid ||= Validator.validate(@number)
     end
 
     def day
@@ -37,10 +37,14 @@ module Egn
       @birth_date.year
     end
 
+    def to_s
+      @number
+    end
+
     private
 
     def parse!
-      info = Parsers::Egn.new(@number)
+      info = Parser.new(@number)
 
       @birth_date = info.birth_date
     end
