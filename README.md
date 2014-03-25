@@ -22,7 +22,7 @@ Or install it yourself as:
 
     require "egn"
 
-    # Generate a random number
+    # Quickly generate a random number
     Egn.generate
     # => "6101047500"
     
@@ -30,12 +30,32 @@ Or install it yourself as:
     Egn.validate("6101047500")
     # => true
     
-    # Parse a given number 
+    # Create an new EGN object with a random number
+    egn = Egn::Egn.new
+    # => 9212094524
+
+    # OR generate EGN for a specific date
+    egn = Egn::Egn.new({year: 1945, month: 5, day: 8}) 
+    # => 4505085346
+    
+    # OR parse an existing one
     egn = Egn.parse("6101047500")
-    # => #<Egn::Parser:0x93d9074 @year=1961, @month=1, @day=4>
+    # => 6101047500
     
     egn.birth_date
     # => #<Date: 1961-01-04 ((2437304j,0s,0n),+0s,2299161j)>
+    
+    egn.year
+    # => 1961
+    
+    egn.month 
+    # => 1
+
+    egn.day
+    # => 10
+
+    egn.valid?
+    # => true
 
 ## Contributing
 

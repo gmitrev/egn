@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Egn::VERSION
   spec.authors       = ["gmitrev"]
   spec.email         = ["gvmitrev@gmail.com"]
-  spec.description   = %q{Generator, validator and info parser for EGN/EIK numbers}
-  spec.summary       = %q{An easy way to generate and validate EGN/EIK numbers and parse them for useful information}
+  spec.description   = %q{Generator, validator and info parser for EGN numbers}
+  spec.summary       = %q{An easy way to generate and validate EGN numbers and parse them for useful information}
   spec.homepage      = "https://github.com/gmitrev/egn"
   spec.license       = "MIT"
 
