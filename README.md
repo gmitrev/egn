@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/gmitrev/egn.svg?branch=master)](https://travis-ci.org/gmitrev/egn)
+[![Coverage Status](https://coveralls.io/repos/gmitrev/egn/badge.png?branch=master)](https://coveralls.io/r/gmitrev/egn?branch=master)
+[![Code Climate](https://codeclimate.com/github/gmitrev/egn.png)](https://codeclimate.com/github/gmitrev/egn)
 # Egn
 
 EGN(ЕГН) is the national identification number of Bulgarian citizens. This gem 
