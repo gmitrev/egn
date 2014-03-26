@@ -9,14 +9,17 @@ require "egn/util"
 
 module Egn
 
-  def self.generate
-    Generator.generate
+  # Quick generate: returns a new number
+  def self.generate(options={})
+    Generator.generate(options)
   end
 
+  # Quick validate
   def self.validate(egn)
     Validator.validate(egn)
   end
 
+  # Quick parse
   def self.parse(egn)
     Egn.new(egn)
   end
