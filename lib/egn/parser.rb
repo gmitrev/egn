@@ -1,30 +1,24 @@
 module Egn
   class Parser
+    attr_reader :date, :sex
 
     def initialize(egn)
-      return ArgumentError, 'invalid length (should == 10)' unless egn.length == 10
+      raise ArgumentError, "Invalid EGN" unless Validator.validate(egn)
 
-      @year, @month, @day = egn.scan(/.{1,2}/)
-      @month = @month.to_i
-      @day = @day.to_i
+      year, month, day = egn.scan(/.{1,2}/).map(&:to_i)
 
-      case @month
+      case month
       when (1..12)
-        @year = "19#{@year}"
+        year = "19#{year}"
       when (21..32)
-        @month -= 20
-        @year = "18#{@year}"
+        month -= 20
+        year = "18#{year}"
       when (41..52)
-        @month -= 40
-        @year = "20#{@year}"
+        month -= 40
+        year = "20#{year}"
       end
-      @year = @year.to_i
 
-      raise ArgumentError, "invalid date" unless Date.valid_date? @year, @month, @day
-    end
-
-    def birth_date
-      Date.parse("#{@year}-#{@month}-#{@day}")
+      @date = Date.new(year.to_i, month, day)
     end
 
   end

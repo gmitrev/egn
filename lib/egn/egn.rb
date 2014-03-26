@@ -46,7 +46,7 @@ module Egn
     def parse!
       info = Parser.new(@number)
 
-      @birth_date = info.birth_date
+      @birth_date = info.date
     end
 
   end
