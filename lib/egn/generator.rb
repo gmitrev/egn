@@ -26,9 +26,9 @@ module Egn
 
       region = Random.rand(0..999)
 
-      if sex == 1 && (region %2 != 0)
+      if sex == 1 && region.odd?
         region -= 1
-      elsif sex == 2 && (region % 2 == 0)
+      elsif sex == 2 && region.even?
         region += 1
       end
 
