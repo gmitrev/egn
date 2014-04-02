@@ -1,14 +1,22 @@
 # Generates a random valid EGN
 module Egn
-  module Generator
+  class Generator
+    attr_reader :options
+
+    # Convinience method
+    def self.generate(options={})
+      Generator.new(options).generate
+    end
+
+    def initialize(options={})
+      @options = defaults.merge(options)
+
+      validate!(@options)
+    end
 
     # The generated EGN will be completely random if no opitons are given.
     # options is a hash that may have the following keys: :year, :month and :date
-    def self.generate(options={})
-      options = defaults.merge(options)
-
-      validate!(options)
-
+    def generate
       century = options[:year] - (options[:year] % 100)
       sex = Random.rand(1..2)
 
@@ -33,13 +41,13 @@ module Egn
     end
 
     # Check if the options contain a date that is valid and be turned into an EGN
-    def self.validate!(options)
+    def validate!(options)
       raise ArgumentError, "Year out of bounds" unless (1800..2099).include?(options[:year])
       raise ArgumentError, "Month out of bounds" unless (1..12).include?(options[:month])
       raise ArgumentError, "Day out of bounds" unless (1..31).include?(options[:day])
     end
 
-    def self.defaults
+    def defaults
       date = Util.time_rand
       {
         year:  date.year,

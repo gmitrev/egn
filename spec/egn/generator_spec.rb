@@ -53,7 +53,7 @@ describe Egn::Generator do
 
         options = {year: 1960, month: 6, day: 3}
 
-        Egn::Generator.should_receive(:validate!).with(options)
+        Egn::Generator.any_instance.should_receive(:validate!).with(options)
 
         Egn::Generator.generate(options)
       end

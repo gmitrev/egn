@@ -1,8 +1,18 @@
 module Egn
   class Validator
+    attr_reader :egn
+
+    # Convinience method
+    def self.validate(egn)
+      Validator.new(egn).validate
+    end
+
+    def initialize(egn)
+      @egn = egn
+    end
 
     # Checks if a given EGN is valid
-    def self.validate(egn)
+    def validate
       return false unless egn.length == 10
 
       # Extract the correct year and month
