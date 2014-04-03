@@ -17,25 +17,12 @@ module Egn
     # The generated EGN will be completely random if no opitons are given.
     # options is a hash that may have the following keys: :year, :month and :date
     def generate
-      century = options[:year] - (options[:year] % 100)
-      sex = Random.rand(1..2)
+      randomize_options
 
-      options[:month] += 20 if century == 1800
-      options[:month] += 40 if century == 2000
-
-      region = Random.rand(0..999)
-
-      if sex == 1 && region.odd?
-        region -= 1
-      elsif sex == 2 && region.even?
-        region += 1
-      end
-
-      final_year = options[:year] - century
-      egn = final_year.to_s.rjust(2, '0') +
+      egn = options[:year].to_s.rjust(2, '0') +
             options[:month].to_s.rjust(2, '0') +
             options[:day].to_s.rjust(2,'0') +
-            region.to_s.rjust(3,'0')
+            options[:region].to_s.rjust(3,'0')
 
       return egn + Util.egn_checksum(egn).to_s
     end
@@ -55,6 +42,27 @@ module Egn
         day:   date.day
       }
     end
+
+    def randomize_options
+      # Get random century, region and sex
+      options[:century] = options[:year] - (options[:year] % 100)
+      options[:region] = Random.rand(0..999)
+      options[:sex] = Random.rand(1..2)
+
+      # Recalculate month based on the century
+      options[:month] += 20 if options[:century] == 1800
+      options[:month] += 40 if options[:century] == 2000
+
+      # Recalculate region based on sex
+      if options[:sex] == 1 && options[:region].odd?
+        options[:region] -= 1
+      elsif options[:sex] == 2 && options[:region].even?
+        options[:region] += 1
+      end
+
+      options[:year] = options[:year] - options[:century]
+    end
+
 
   end
 end
