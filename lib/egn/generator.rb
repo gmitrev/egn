@@ -32,6 +32,7 @@ module Egn
       raise ArgumentError, "Year out of bounds" unless (1800..2099).include?(options[:year])
       raise ArgumentError, "Month out of bounds" unless (1..12).include?(options[:month])
       raise ArgumentError, "Day out of bounds" unless (1..31).include?(options[:day])
+      raise ArgumentError, "Invalid sex; valid values: [:male, :female]" unless [:male, :female].include?(options[:sex])
     end
 
     def defaults
@@ -39,7 +40,8 @@ module Egn
       {
         year:  date.year,
         month: date.month,
-        day:   date.day
+        day:   date.day,
+        sex:   [:male, :female].sample
       }
     end
 
@@ -47,16 +49,15 @@ module Egn
       # Get random century, region and sex
       options[:century] = options[:year] - (options[:year] % 100)
       options[:region] = Random.rand(0..999)
-      options[:sex] = Random.rand(1..2)
 
       # Recalculate month based on the century
       options[:month] += 20 if options[:century] == 1800
       options[:month] += 40 if options[:century] == 2000
 
       # Recalculate region based on sex
-      if options[:sex] == 1 && options[:region].odd?
+      if options[:sex] == :male && options[:region].odd?
         options[:region] -= 1
-      elsif options[:sex] == 2 && options[:region].even?
+      elsif options[:sex] == :female && options[:region].even?
         options[:region] += 1
       end
 

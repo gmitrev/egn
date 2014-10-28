@@ -22,7 +22,7 @@ describe Egn::Generator do
 
     context "invoked with arguments" do
       it "generates a new EGN considering the given options" do
-        number = Egn::Generator.generate(year: 1990, month: 12, day: 30, sex: :m)
+        number = Egn::Generator.generate(year: 1990, month: 12, day: 30, sex: :male)
         egn = Egn::Egn.new(number)
 
         expect(egn).to be_valid
@@ -49,15 +49,28 @@ describe Egn::Generator do
         expect(egn.day).to eq(15)
       end
 
+      it "generates female EGNs" do
+        number = Egn::Generator.generate(sex: :female)
+        egn = Egn::Egn.new(number)
+
+        expect(egn.sex).to eq(:female)
+      end
+
+      it "generates male EGNs" do
+        number = Egn::Generator.generate(sex: :male)
+        egn = Egn::Egn.new(number)
+
+        expect(egn.sex).to eq(:male)
+      end
+
       it "validates the options" do
 
-        options = {year: 1960, month: 6, day: 3}
+        options = {year: 1960, month: 6, day: 3, sex: :male}
 
         Egn::Generator.any_instance.should_receive(:validate!).with(options)
 
         Egn::Generator.generate(options)
       end
-
 
     end
   end
@@ -79,6 +92,12 @@ describe Egn::Generator do
     it "raises an exception if invalid day is given" do
       expect{
         Egn::Generator.generate(day: 33)
+      }.to raise_error ArgumentError
+    end
+
+    it "raises an exception if invalid sex is given" do
+      expect{
+        Egn::Generator.generate(sex: :none)
       }.to raise_error ArgumentError
     end
 
