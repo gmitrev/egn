@@ -1,4 +1,4 @@
-require 'spec_helper' 
+require 'spec_helper'
 
 describe "Egn" do
 
@@ -32,7 +32,7 @@ describe "Egn" do
 
       it "returns a new Egn object if the provided EGN is valid" do
         egn = Egn::Egn.new('6101047500')
-        
+
         expect(egn).to be_valid
       end
 
@@ -80,6 +80,26 @@ describe "Egn" do
   describe 'validating'
 
   describe 'parsing'
+
+  describe 'sex' do
+
+    # Female
+    %w(4702054631 5202079211 8012304154 9506062719 9308110830).each do |female_egn|
+      it "works for female with egn #{female_egn}" do
+        egn = Egn::Egn.new(female_egn)
+        expect(egn.sex).to eq :female
+      end
+    end
+
+    # Male
+    %w(0612318303 4310093863 4903195863 6109226225 9805316300).each do |male_egn|
+      it "works for male with egn #{male_egn}" do
+        egn = Egn::Egn.new(male_egn)
+        expect(egn.sex).to eq :male
+      end
+    end
+
+  end
 
 end
 

@@ -43,6 +43,10 @@ module Egn
       @birth_date.year
     end
 
+    def sex
+      number[8,1].to_i.even? ? :male : :female
+    end
+
     def to_s
       @number
     end
