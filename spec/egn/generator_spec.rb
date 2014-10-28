@@ -43,10 +43,18 @@ describe Egn::Generator do
       end
 
       it "generates a new EGN with the given day" do
-        number = Egn::Generator.generate(day: 15)
+        number = Egn::Generator.generate(day: 29)
         egn = Egn::Egn.new(number)
 
-        expect(egn.day).to eq(15)
+        expect(egn.day).to eq(29)
+      end
+
+      it "doesn't generate invalid EGN's for day 29 (in case of february)" do
+        Array.new(10_000) { |i| Egn.generate(day: 29) }.each do |egn|
+          result = Egn::Validator.validate(egn)
+          expect(result).to be_true, "Failed for #{egn}"
+        end
+
       end
 
       it "generates female EGNs" do
@@ -65,9 +73,9 @@ describe Egn::Generator do
 
       it "validates the options" do
 
-        options = {year: 1960, month: 6, day: 3, sex: :male}
+        options = {year: 1960, month: 6, day: 3, sex: :male, region: 333}
 
-        Egn::Generator.any_instance.should_receive(:validate!).with(options)
+        Egn::Generator.any_instance.should_receive(:validate!)
 
         Egn::Generator.generate(options)
       end

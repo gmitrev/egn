@@ -9,61 +9,95 @@ module Egn
     end
 
     def initialize(options={})
-      @options = defaults.merge(options)
-
-      validate!(@options)
+      validate!(options)
+      set_defaults!(options)
+      process!
     end
 
     # The generated EGN will be completely random if no opitons are given.
     # options is a hash that may have the following keys: :year, :month and :date
     def generate
-      randomize_options
+      #     YY                       MM                        DD                      REST
+      egn = format(options[:year]) + format(options[:month]) + format(options[:day]) + format(options[:region], 3)
 
-      egn = options[:year].to_s.rjust(2, '0') +
-            options[:month].to_s.rjust(2, '0') +
-            options[:day].to_s.rjust(2,'0') +
-            options[:region].to_s.rjust(3,'0')
+      egn + Util.egn_checksum(egn).to_s
+    end
 
-      return egn + Util.egn_checksum(egn).to_s
+    private
+
+    def set_defaults!(options)
+      @options = {}
+
+      until Date.valid_date?(@options[:year].to_i, @options[:month].to_i, @options[:day].to_i)
+        @options = defaults.merge(options)
+      end
+
+    end
+
+    # Little helper
+    def format(val, pre=2)
+      val.to_s.rjust(pre, '0')
     end
 
     # Check if the options contain a date that is valid and be turned into an EGN
     def validate!(options)
-      raise ArgumentError, "Year out of bounds" unless (1800..2099).include?(options[:year])
-      raise ArgumentError, "Month out of bounds" unless (1..12).include?(options[:month])
-      raise ArgumentError, "Day out of bounds" unless (1..31).include?(options[:day])
-      raise ArgumentError, "Invalid sex; valid values: [:male, :female]" unless [:male, :female].include?(options[:sex])
+      raise ArgumentError, "Year out of bounds" if options[:year] && !(1800..2099).include?(options[:year])
+      raise ArgumentError, "Month out of bounds" if options[:month] && !(1..12).include?(options[:month])
+      raise ArgumentError, "Day out of bounds" if options[:day] && !(1..31).include?(options[:day])
+      raise ArgumentError, "Sex should be one of #{sexes}" if options[:sex] && !sexes.include?(options[:sex])
     end
 
+    # Random defaults
     def defaults
-      date = Util.time_rand
+      date = -> { Util.time_rand }.call
       {
-        year:  date.year,
-        month: date.month,
-        day:   date.day,
-        sex:   [:male, :female].sample
+        year:    date.year,
+        month:   date.month,
+        day:     date.day,
+        sex:     sexes.sample,
+        region:  Random.rand(0..999)
       }
     end
 
-    def randomize_options
+    def process!
       # Get random century, region and sex
-      options[:century] = options[:year] - (options[:year] % 100)
-      options[:region] = Random.rand(0..999)
+      century = determine_century(options[:year])
 
-      # Recalculate month based on the century
-      options[:month] += 20 if options[:century] == 1800
-      options[:month] += 40 if options[:century] == 2000
+      options[:month] += month_delta(century)
 
-      # Recalculate region based on sex
-      if options[:sex] == :male && options[:region].odd?
-        options[:region] -= 1
-      elsif options[:sex] == :female && options[:region].even?
-        options[:region] += 1
-      end
+      options[:region] += region_delta(options[:sex], options[:region])
 
-      options[:year] = options[:year] - options[:century]
+      options[:year] = options[:year] - century
     end
 
+    # Recalculate region based on sex
+    def region_delta(sex, region)
+      if sex == :male && region.odd?
+        -1
+      elsif sex == :female && region.even?
+        1
+      else
+        0
+      end
+    end
+
+    def month_delta(century)
+      if century == 1800
+        20
+      elsif century == 2000
+        40
+      else
+        0
+      end
+    end
+
+    def determine_century(year)
+      year - (year % 100)
+    end
+
+    def sexes
+      [:male, :female]
+    end
 
   end
 end

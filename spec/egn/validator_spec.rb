@@ -17,8 +17,7 @@ describe Egn::Validator do
     it "checks 10 000 of the generated numbers" do
       Array.new(10_000) { |i| Egn.generate }.each do |egn|
         result = Egn::Validator.validate(egn)
-        puts egn unless result
-        expect(result).to be_true
+        expect(result).to be_true, "Failed for #{egn}"
       end
     end
 
