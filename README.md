@@ -60,6 +60,12 @@ Or install it yourself as:
     egn.sex
     # => :male
 
+    egn.sex(format: :char)
+    # => 'm'
+
+    egn.sex(format: :number)
+    # => 1
+
     egn.valid?
     # => true
 
