@@ -3,12 +3,12 @@ module Egn
   module Util
     WEIGHTS = [2,4,8,5,10,9,7,3,6]
 
-    # The EGN can have three different formats depending on the century. It can 
+    # The EGN can have three different formats depending on the century. It can
     # be determined by examining the month.
     # The rules are as follows:
     # * For people born in 1900..1999 the month does not change
-    # * For people born in 1800..1899 the month is +20 (e.g January is 21)
-    # * For people born in 2000..2099 the month is +40 (e.g December is 52)
+    # * For people born in 1800..1899 the month increases by 20 (e.g January is 21)
+    # * For people born in 2000..2099 the month increases by 40 (e.g December is 52)
     def self.determine_date(year, month)
       case month
       when (1..12)
@@ -24,9 +24,9 @@ module Egn
       [year.to_i, month]
     end
 
-    # The checksum is calculated from the first 9 digits.
+    # More information on the formula: http://www.grao.bg/esgraon.html
     def self.egn_checksum(egn)
-      sum = egn.split('').map(&:to_i).zip(WEIGHTS).map { |n| n.reduce(:*) }.reduce(:+)
+      sum = egn.chars.map(&:to_i).zip(WEIGHTS).map { |n| n.reduce(:*) }.reduce(:+)
 
       rest = sum % 11
       rest < 10 ? rest : 0

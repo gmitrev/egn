@@ -2,7 +2,7 @@ module Egn
   class Validator
     attr_reader :egn
 
-    # Convinience method
+    # Convenience method
     def self.validate(egn)
       Validator.new(egn).validate
     end

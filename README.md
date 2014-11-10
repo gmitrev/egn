@@ -57,13 +57,13 @@ Or install it yourself as:
     egn.day
     # => 10
 
-    egn.sex
+    egn.gender # egn.sex can also be used
     # => :male
 
-    egn.sex(format: :char)
+    egn.gender(format: :char)
     # => 'm'
 
-    egn.sex(format: :number)
+    egn.gender(format: :number)
     # => 1
 
     egn.valid?

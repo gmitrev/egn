@@ -15,10 +15,12 @@ module Egn
     end
 
     # The generated EGN will be completely random if no opitons are given.
-    # options is a hash that may have the following keys: :year, :month and :date
+    # options is a hash that may have the following keys: :year, :month, :day, :gender
     def generate
-      #     YY                       MM                        DD                      REST
-      egn = format(options[:year]) + format(options[:month]) + format(options[:day]) + format(options[:region], 3)
+      egn = format(options[:year]) +
+            format(options[:month]) +
+            format(options[:day]) +
+            format(options[:region], 3)
 
       egn + Util.egn_checksum(egn).to_s
     end
@@ -44,7 +46,7 @@ module Egn
       raise ArgumentError, "Year out of bounds" if options[:year] && !(1800..2099).include?(options[:year])
       raise ArgumentError, "Month out of bounds" if options[:month] && !(1..12).include?(options[:month])
       raise ArgumentError, "Day out of bounds" if options[:day] && !(1..31).include?(options[:day])
-      raise ArgumentError, "Sex should be one of #{sexes}" if options[:sex] && !sexes.include?(options[:sex])
+      raise ArgumentError, "Gender should be one of #{genders}" if options[:gender] && !genders.include?(options[:gender])
     end
 
     # Random defaults
@@ -54,27 +56,27 @@ module Egn
         year:    date.year,
         month:   date.month,
         day:     date.day,
-        sex:     sexes.sample,
+        gender:  genders.sample,
         region:  Random.rand(0..999)
       }
     end
 
     def process!
-      # Get random century, region and sex
+      # Get random century, region and gender
       century = determine_century(options[:year])
 
       options[:month] += month_delta(century)
 
-      options[:region] += region_delta(options[:sex], options[:region])
+      options[:region] += region_delta(options[:gender], options[:region])
 
       options[:year] = options[:year] - century
     end
 
-    # Recalculate region based on sex
-    def region_delta(sex, region)
-      if sex == :male && region.odd?
+    # Recalculate region based on gender
+    def region_delta(gender, region)
+      if gender == :male && region.odd?
         -1
-      elsif sex == :female && region.even?
+      elsif gender == :female && region.even?
         1
       else
         0
@@ -95,7 +97,7 @@ module Egn
       year - (year % 100)
     end
 
-    def sexes
+    def genders
       [:male, :female]
     end
 
