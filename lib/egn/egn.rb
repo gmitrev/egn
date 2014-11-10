@@ -43,12 +43,30 @@ module Egn
       @birth_date.year
     end
 
-    def sex
-      number[8,1].to_i.even? ? :male : :female
+    # Formats
+    # default: :male | :female
+    # number:      1 | 2
+    # char:      'm' | 'f'
+    def sex(options={})
+      options = {
+        format: :default
+      }.merge(options)
+
+      male = number[8,1].to_i.even?
+
+      case options[:format]
+      when :default
+        male ? :male : :female
+      when :number
+        male ? 1 : 2
+      when :char
+        male ? 'm' : 'f'
+      end
     end
+    alias_method :gender, :sex
 
     def to_s
-      @number
+      "#{@number} | Gender: #{gender} | Birthdate: #{@birth_date} | Valid: #{valid?}"
     end
 
     private

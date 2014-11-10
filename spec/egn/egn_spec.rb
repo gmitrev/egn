@@ -99,6 +99,22 @@ describe "Egn" do
       end
     end
 
+    it 'allows an option to be passed that changes the output to numbers' do
+      male   = Egn.parse("0612318303")
+      female = Egn.parse("5202079211")
+
+      expect(male.sex(format: :number)).to eq 1
+      expect(female.sex(format: :number)).to eq 2
+    end
+
+    it 'allows an option to be passed that changes the output to a single char' do
+      male   = Egn.parse("0612318303")
+      female = Egn.parse("5202079211")
+
+      expect(male.sex(format: :char)).to eq 'm'
+      expect(female.sex(format: :char)).to eq 'f'
+    end
+
   end
 
 end
