@@ -3,7 +3,7 @@ module Egn
   class Generator
     attr_reader :options
 
-    # Convinience method
+    # Convenience method
     def self.generate(options={})
       Generator.new(options).generate
     end
@@ -14,7 +14,7 @@ module Egn
       process!
     end
 
-    # The generated EGN will be completely random if no opitons are given.
+    # The generated EGN will be completely random if no options are given.
     # options is a hash that may have the following keys: :year, :month, :day, :gender
     def generate
       egn = format(options[:year]) +
@@ -36,7 +36,7 @@ module Egn
 
     end
 
-    # Little helper
+    # Little helper that prefixes strings with 0s
     def format(val, pre=2)
       val.to_s.rjust(pre, '0')
     end
