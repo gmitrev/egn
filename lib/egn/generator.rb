@@ -4,11 +4,11 @@ module Egn
     attr_reader :options
 
     # Convenience method
-    def self.generate(options={})
+    def self.generate(options = {})
       Generator.new(options).generate
     end
 
-    def initialize(options={})
+    def initialize(options = {})
       validate!(options)
       set_defaults!(options)
       process!
@@ -33,19 +33,18 @@ module Egn
       until Date.valid_date?(@options[:year].to_i, @options[:month].to_i, @options[:day].to_i)
         @options = defaults.merge(options)
       end
-
     end
 
     # Little helper that prefixes strings with 0s
-    def format(val, pre=2)
+    def format(val, pre = 2)
       val.to_s.rjust(pre, '0')
     end
 
     # Check if the options contain a date that is valid and be turned into an EGN
     def validate!(options)
-      raise ArgumentError, "Year out of bounds" if options[:year] && !(1800..2099).include?(options[:year])
-      raise ArgumentError, "Month out of bounds" if options[:month] && !(1..12).include?(options[:month])
-      raise ArgumentError, "Day out of bounds" if options[:day] && !(1..31).include?(options[:day])
+      raise ArgumentError, 'Year out of bounds' if options[:year] && !(1800..2099).include?(options[:year])
+      raise ArgumentError, 'Month out of bounds' if options[:month] && !(1..12).include?(options[:month])
+      raise ArgumentError, 'Day out of bounds' if options[:day] && !(1..31).include?(options[:day])
       raise ArgumentError, "Gender should be one of #{genders}" if options[:gender] && !genders.include?(options[:gender])
     end
 
@@ -100,6 +99,5 @@ module Egn
     def genders
       [:male, :female]
     end
-
   end
 end

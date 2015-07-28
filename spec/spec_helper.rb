@@ -12,6 +12,5 @@ RSpec.configure do |config|
   config.filter_run :focus
   config.filter_run_excluding :brute
 
-
   config.order = 'random'
 end

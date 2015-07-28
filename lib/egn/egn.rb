@@ -7,8 +7,7 @@ module Egn
     # when no arguments are given, it generates a new random EGN;
     # when a String is given, it is parsed as an EGN;
     # when a hash is given, a new EGN is generated with the provided options.
-    def initialize(args=nil)
-
+    def initialize(args = nil)
       if args.nil?
         @number = Generator.generate
       else
@@ -17,9 +16,9 @@ module Egn
           @number = Generator.generate(args)
         when String
           @number = args
-          raise ArgumentError, "Invalid EGN" unless self.valid?
+          raise ArgumentError, 'Invalid EGN' unless self.valid?
         else
-          raise ArgumentError, "Egn#new should be called either with an EGN or with an options hash"
+          raise ArgumentError, 'Egn#new should be called either with an EGN or with an options hash'
         end
       end
 
@@ -47,12 +46,12 @@ module Egn
     # default: :male | :female
     # number:      1 | 2
     # char:      'm' | 'f'
-    def sex(options={})
+    def sex(options = {})
       options = {
         format: :default
       }.merge(options)
 
-      male = number[8,1].to_i.even?
+      male = number[8, 1].to_i.even?
 
       case options[:format]
       when :default
@@ -77,6 +76,5 @@ module Egn
 
       @birth_date = info.date
     end
-
   end
 end

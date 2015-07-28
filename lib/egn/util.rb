@@ -1,7 +1,7 @@
 # Contains some utility methods that are used by the other classes
 module Egn
   module Util
-    WEIGHTS = [2,4,8,5,10,9,7,3,6]
+    WEIGHTS = [2, 4, 8, 5, 10, 9, 7, 3, 6]
 
     # The EGN can have three different formats depending on the century. It can
     # be determined by examining the month.
@@ -36,6 +36,5 @@ module Egn
     def self.time_rand(from = 0.0, to = Time.now)
       Time.at(from + rand * (to.to_f - from.to_f))
     end
-
   end
 end

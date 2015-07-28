@@ -1,16 +1,15 @@
-require "date"
+require 'date'
 
-require "egn/egn"
-require "egn/parser"
-require "egn/validator"
-require "egn/generator"
-require "egn/version"
-require "egn/util"
+require 'egn/egn'
+require 'egn/parser'
+require 'egn/validator'
+require 'egn/generator'
+require 'egn/version'
+require 'egn/util'
 
 module Egn
-
   # Quick generate: returns a new number
-  def self.generate(options={})
+  def self.generate(options = {})
     Generator.generate(options)
   end
 
@@ -23,5 +22,4 @@ module Egn
   def self.parse(egn)
     Egn.new(egn)
   end
-
 end

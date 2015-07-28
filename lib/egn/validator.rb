@@ -19,7 +19,7 @@ module Egn
       return false unless Date.valid_date?(@year, @month, @day)
 
       # Calculate the checksum and check if the given one is correct
-      checksum = Util.egn_checksum(@egn[0,9])
+      checksum = Util.egn_checksum(@egn[0, 9])
       checksum == @egn[9].to_i
     end
 
@@ -30,6 +30,5 @@ module Egn
       year, month = Util.determine_date(year, month)
       [year, month, day]
     end
-
   end
 end
