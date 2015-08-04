@@ -10,9 +10,9 @@ information.
 ## Installation
 
 Add this line to your application's Gemfile:
-
-    gem 'egn'
-
+```ruby
+gem 'egn'
+```
 And then execute:
 
     $ bundle
@@ -23,51 +23,53 @@ Or install it yourself as:
 
 ## Usage
 
-    require 'egn'
+```ruby
+require 'egn'
 
-    # Quickly generate a random number
-    Egn.generate
-    => '6101047500'
+# Quickly generate a random number
+Egn.generate
+=> '6101047500'
 
-    # Validate a given number
-    Egn.validate('6101047500')
-    => true
+# Validate a given number
+Egn.validate('6101047500')
+=> true
 
-    # Create an new EGN object with a random number
-    egn = Egn::Egn.new
-    => 9212094524
+# Create an new EGN object with a random number
+egn = Egn::Egn.new
+=> 9212094524
 
-    # OR generate EGN for a specific date
-    egn = Egn::Egn.new(year: 1945, month: 5, day: 8)
-    => 4505085346
+# OR generate EGN for a specific date
+egn = Egn::Egn.new(year: 1945, month: 5, day: 8)
+=> 4505085346
 
-    # OR parse an existing one
-    egn = Egn.parse('6101047500')
-    => 6101047500
+# OR parse an existing one
+egn = Egn.parse('6101047500')
+=> 6101047500
 
-    egn.birth_date
-    => #<Date: 1961-01-04 ((2437304j,0s,0n),+0s,2299161j)>
+egn.birth_date
+=> #<Date: 1961-01-04 ((2437304j,0s,0n),+0s,2299161j)>
 
-    egn.year
-    => 1961
+egn.year
+=> 1961
 
-    egn.month
-    => 1
+egn.month
+=> 1
 
-    egn.day
-    => 10
+egn.day
+=> 10
 
-    egn.gender # egn.sex can also be used
-    => :male
+egn.gender # egn.sex can also be used
+=> :male
 
-    egn.gender(format: :char)
-    => 'm'
+egn.gender(format: :char)
+=> 'm'
 
-    egn.gender(format: :number)
-    => 1
+egn.gender(format: :number)
+=> 1
 
-    egn.valid?
-    => true
+egn.valid?
+=> true
+```
 
 ## Contributing
 

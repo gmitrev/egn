@@ -7,8 +7,8 @@ module Egn
     # be determined by examining the month.
     # The rules are as follows:
     # * For people born in 1900..1999 the month does not change
-    # * For people born in 1800..1899 the month increases by 20 (e.g January is 21)
-    # * For people born in 2000..2099 the month increases by 40 (e.g December is 52)
+    # * For people born in 1800..1899 the month is increased by 20 (e.g January is 21)
+    # * For people born in 2000..2099 the month is increased by 40 (e.g December is 52)
     def self.determine_date(year, month)
       case month
       when (1..12)
@@ -24,7 +24,7 @@ module Egn
       [year.to_i, month]
     end
 
-    # More information on the formula: http://www.grao.bg/esgraon.html
+    # More information on the formula: http://www.grao.bg/esgraon.html#section2
     def self.egn_checksum(egn)
       sum = egn.chars.map(&:to_i).zip(WEIGHTS).map { |n| n.reduce(:*) }.reduce(:+)
 
