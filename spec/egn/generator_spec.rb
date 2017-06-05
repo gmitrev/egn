@@ -49,7 +49,7 @@ describe Egn::Generator do
       it "doesn't generate invalid EGN's for day 29 (in case of february)" do
         Array.new(10_000) { |_i| Egn.generate(day: 29) }.each do |egn|
           result = Egn::Validator.validate(egn)
-          expect(result).to be_true, "Failed for #{egn}"
+          expect(result).to be_truthy, "Failed for #{egn}"
         end
       end
 
