@@ -36,5 +36,9 @@ module Egn
     def self.time_rand(from = 0.0, to = Time.now)
       Time.at(from + rand * (to.to_f - from.to_f))
     end
+
+    def self.year_in_range?(year)
+      (1800..2099).include?(year)
+    end
   end
 end
