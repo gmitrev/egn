@@ -12,13 +12,13 @@ module Egn
     def self.determine_date(year, month)
       case month
       when (1..12)
-        year = "19#{year}"
+        year = "19%02d" % [ year ]
       when (21..32)
         month -= 20
-        year = "18#{year}"
+        year = "18%02d" % [ year ]
       when (41..52)
         month -= 40
-        year = "20#{year}"
+        year = "20%02d" % [ year ]
       end
 
       [year.to_i, month]
