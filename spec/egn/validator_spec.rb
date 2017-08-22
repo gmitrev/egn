@@ -10,6 +10,10 @@ describe Egn::Validator do
     it 'fails for incorrect dates' do
       expect(Egn::Validator.validate('6101347500')).to be_false
     end
+    
+    it 'fails for dates during gregorian calendar adoption' do
+      expect(Egn::Validator.validate('1604010886')).to be_false
+    end
 
     it 'checks 10 000 of the generated numbers' do
       Array.new(10_000) { |_| Egn.generate }.each do |egn|
