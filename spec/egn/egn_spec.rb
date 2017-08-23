@@ -67,7 +67,12 @@ describe 'Egn' do
     end
   end
 
-  describe 'validating'
+  describe 'validating' do
+    egn = Egn.parse('0150247881')
+    it "year must be in this decade #{egn}" do
+      expect(egn.year).to eq 2001
+    end
+  end
 
   describe 'parsing'
 

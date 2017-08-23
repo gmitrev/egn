@@ -12,13 +12,13 @@ module Egn
     def self.determine_date(year, month)
       case month
       when (1..12)
-        year = "19#{year}"
+        year = "19%02d" % [ year ]
       when (21..32)
         month -= 20
-        year = "18#{year}"
+        year = "18%02d" % [ year ]
       when (41..52)
         month -= 40
-        year = "20#{year}"
+        year = "20%02d" % [ year ]
       end
 
       [year.to_i, month]
@@ -35,6 +35,10 @@ module Egn
     # Get a random date
     def self.time_rand(from = 0.0, to = Time.now)
       Time.at(from + rand * (to.to_f - from.to_f))
+    end
+
+    def self.year_in_range?(year)
+      (1800..2099).include?(year)
     end
   end
 end

@@ -42,7 +42,7 @@ module Egn
 
     # Check if the options contain a date that is valid and be turned into an EGN
     def validate!(options)
-      raise ArgumentError, 'Year out of bounds' if options[:year] && !(1800..2099).include?(options[:year])
+      raise ArgumentError, 'Year out of bounds' if options[:year] && !Util.year_in_range?(options[:year])
       raise ArgumentError, 'Month out of bounds' if options[:month] && !(1..12).include?(options[:month])
       raise ArgumentError, 'Day out of bounds' if options[:day] && !(1..31).include?(options[:day])
       raise ArgumentError, "Gender should be one of #{genders}" if options[:gender] && !genders.include?(options[:gender])

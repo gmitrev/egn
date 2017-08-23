@@ -17,6 +17,7 @@ module Egn
     def validate
       return false unless @egn.length == 10
       return false unless Date.valid_date?(@year, @month, @day)
+      return false unless Util.year_in_range?(@year)
 
       # Calculate the checksum and check if the given one is correct
       checksum = Util.egn_checksum(@egn[0, 9])
