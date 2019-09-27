@@ -42,6 +42,11 @@ module Egn
       @birth_date.year
     end
 
+    def age
+      @birth_date
+      ((Date.today - @birth_date) / 365).floor
+    end
+
     # Formats
     # default: :male | :female
     # number:      1 | 2

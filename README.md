@@ -67,6 +67,9 @@ egn.gender(format: :char)
 egn.gender(format: :number)
 => 1
 
+egn.age
+=> 58
+
 egn.valid?
 => true
 ```
